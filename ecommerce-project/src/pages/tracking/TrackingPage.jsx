@@ -2,7 +2,7 @@
 import { useParams } from 'react-router';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { Header } from '../components/Header';
+import { Header } from '../../components/Header';
 import './TrackingPage.css';
 import { useEffect, useState } from 'react';
 
