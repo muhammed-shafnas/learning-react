@@ -20,6 +20,7 @@ export function DeliveryOptions({ deliveryOption, cartItem }) {
                         deliveryOptionId: deliveryOption.id
                     });
                 }
+                
                 return (
                     <div key={deliveryOption.id} className="delivery-option"
                     onClick={updateDeliveryOption}

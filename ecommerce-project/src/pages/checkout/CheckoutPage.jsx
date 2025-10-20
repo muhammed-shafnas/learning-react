@@ -6,27 +6,34 @@ import { CheckoutHeader } from './CheckoutHeader';
 import { PaymentSummary } from './PaymentSummary';
 
 export function CheckoutPage({ cart }) {
+    window.axios = axios;
 
     const [deliveryOption, setDeliveryOption] = useState([]);
     const [paymentSummary, setPaymentSummary] = useState(null);
 
     useEffect(() => {
-        const fetchCheckoutData = async () => {
-            let response = await axios.get('/api/delivery-options?expand=estimatedDeliveryTime')
-            setDeliveryOption(response.data);
-
-            response = await axios.get('/api/payment-summary');
+        const fetchCheckoutData = async () =>{ 
+        const response = await axios.get('/api/payment-summary');
             setPaymentSummary(response.data);
         }
 
         fetchCheckoutData();
     }, [cart])
 
+    useEffect(() => {
+        const fetchDeliveryData = async () => {
+            const response = await axios.get('/api/delivery-options?expand=estimatedDeliveryTime')
+            setDeliveryOption(response.data);
+        }
+
+        fetchDeliveryData();
+    }, []);
+
     return (
         <>
             <title>Checkout</title>
 
-            <CheckoutHeader />
+            <CheckoutHeader cart={cart}/>
 
             <div className="checkout-page">
                 <div className="page-title">Review your order</div>
