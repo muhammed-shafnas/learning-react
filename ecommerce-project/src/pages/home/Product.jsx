@@ -69,7 +69,7 @@ export function Product({ product }) {
             </div>
 
             <button className="add-to-cart-button button-primary" onClick={addToCart}>
-                Add to Cart
+                Add to 
             </button>
         </div >
     )
