@@ -1,31 +1,47 @@
 import { Link } from 'react-router';
+import { useState } from 'react';
 import './Header.css';
+import { useNavigate, useSearchParams } from 'react-router';
 
-export function Header({cart}) {
-let totalQuantity = 0;
+export function Header({ cart }) {
+    let totalQuantity = 0;
+    const searchNavigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const searchText = searchParams.get('search');
+    const [search, setSearch] = useState(searchText || '');
 
-cart.forEach((cartItem) => {
-    totalQuantity += cartItem.quantity;
-})
-    
+    const inputText = (event) => {
+        setSearch(event.target.value);
+    }
+
+    const eraseInput = () => {
+        
+            searchItem();
+    }
+
+    const searchItem = () => {
+        searchNavigate(`/?search=${search}`);
+
+    }
+    cart.forEach((cartItem) => {
+        totalQuantity += cartItem.quantity;
+    })
+
     return (
         <>
             <div className="header">
                 <div className="left-section">
                     <Link to="/" className="header-link">
-                        <img className="logo"
-                            src="images/logo-white.png" />
-                        <img className="mobile-logo"
-                            src="images/mobile-logo-white.png" />
+                        <span className='logo-text'>React-Project</span>
                     </Link>
                 </div>
 
                 <div className="middle-section">
-                    <input className="search-bar" type="text" placeholder="Search" />
+                    <input className="search-bar" value={search} type="text" placeholder="Search" onChange={inputText} onKeyDown={eraseInput} onClick={() => {
+                        searchNavigate('/');
+                    }}/>
 
-                    <button className="search-button">
-                        <img className="search-icon" src="images/icons/search-icon.png" />
-                    </button>
+                   
                 </div>
 
                 <div className="right-section">
